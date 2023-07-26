@@ -6,6 +6,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         ReadFile readFile = new ReadFile();
-        readFile.readFile("C:\\Users\\andyj\\IdeaProjects\\Concordance\\src\\aliceInWonderland.txt");
+        readFile.readFile("aliceInWonderland.txt");
     }
 }

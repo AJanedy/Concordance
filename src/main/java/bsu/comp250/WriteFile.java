@@ -21,8 +21,9 @@ public class WriteFile {
             }
         }
         fileWriter.close();
-        // Calling the writeAlphabetically method, passing in the filename as a String,
+        // Calling the mergeSort method in the MergeSort class, passing in the filename as a String,
         // and the length of the given array
-        //writeAplabetically(stringFileName, wordsArray.length, filename);
+        MergeSort mergeSort = new MergeSort();
+        mergeSort.mergeSort(stringFileName, wordsArray.length);
     }
 }

@@ -33,9 +33,9 @@ public class ReadFile {
 
         // Calling the writeFile method, passing in the newly created array and the filename, extracted from the filepath
         WriteFile writeFile = new WriteFile();
-        ExtractFileName extractName = new ExtractFileName();
+        //ExtractFileName extractName = new ExtractFileName();
         //ExtractFileName.extractFileName(filePath);
-        writeFile.writeFile(wordsArray, extractName.extractFileName(filePath));
+        writeFile.writeFile(wordsArray, filePath);//extractName.extractFileName(filePath));
         //writeFile(wordsArray, extractFileName(filePath));
     }
 }
