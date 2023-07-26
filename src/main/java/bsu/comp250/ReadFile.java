@@ -10,7 +10,7 @@ public class ReadFile {
     public void readFile(String filePath) throws IOException {
         // Declares and defines an arrayList that will later be converted to an array
         ArrayList<String> listOfWords = new ArrayList<>();
-
+        // FIXME: eliminate arraylist.  Iterate twice, count once, build
         try {
             // Creates a File object to be passed into the Scanner object
             File textToParse = new File(filePath);

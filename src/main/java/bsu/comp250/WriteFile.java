@@ -23,7 +23,7 @@ public class WriteFile {
         fileWriter.close();
         // Calling the mergeSort method in the MergeSort class, passing in the filename as a String,
         // and the length of the given array
-        MergeSort mergeSort = new MergeSort();
-        mergeSort.mergeSort(stringFileName, wordsArray.length);
+        //MergeSort mergeSort = new MergeSort();
+        //`mergeSort.mergeSort(stringFileName, wordsArray.length);
     }
 }
