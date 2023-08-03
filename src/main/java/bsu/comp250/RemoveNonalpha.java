@@ -1,8 +1,8 @@
 package bsu.comp250;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// RemoveNonAlpha removes leading and trailing non-alphanumeric characters from a String
 public class RemoveNonalpha {
     public String RemoveNonalpha(String input) {
         // Defines a pattern to match non-alphanumeric characters

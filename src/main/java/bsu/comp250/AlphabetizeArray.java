@@ -1,93 +1,81 @@
 package bsu.comp250;
 
 public class AlphabetizeArray {
-    String [] sortedWordsArray;
-    int[] sortedIndicesArray;
-    String[] wordsArray;
-    int[] indicesArray;
-    public void AlphabetizeArray(String[] wordsArray, int[] indicesArray) {
+    // This function takes an array of objects and returns a new array that is sorted
+    public IndexedWordObject[] mergeSort(IndexedWordObject[] arrayToSort) {
 
-        this.wordsArray = wordsArray;
-        this.indicesArray = indicesArray;
-        this.sortedWordsArray = mergeSort(wordsArray, indicesArray);
-    }
-    public String[] mergeSort(String[] wordsArray, int[] indicesArray) {
-
-        if (wordsArray.length == 1) {
-            return wordsArray;
+        // Base case: if array has 1 element, it is sorted by default
+        if (arrayToSort.length == 1) {
+            return arrayToSort;
         }
-        int halfway = wordsArray.length / 2;
-        String[] leftWordsArray = new String[halfway];
-        String[] rightWordsArray = new String[wordsArray.length - halfway];
-        int[] leftIndicesArray = new int[halfway];
-        int[] rightIndicesArray = new int[wordsArray.length - halfway];
-
+        // Split the array into two half size arrays
+        int halfway = arrayToSort.length / 2;
+        IndexedWordObject[] leftWordsArray = new IndexedWordObject[halfway];
+        IndexedWordObject[] rightWordsArray = new IndexedWordObject[arrayToSort.length - halfway];
+        // Copy array[0 - halfway] to another array
         for (int i = 0; i < halfway; i++) {
-            leftWordsArray[i] = wordsArray[i];
-            leftIndicesArray[i] = indicesArray[i];
+            leftWordsArray[i] = arrayToSort[i];
         }
-        for (int i = halfway; i < wordsArray.length; i++) {
-            rightWordsArray[i - halfway] = wordsArray[i];
-            rightIndicesArray[i - halfway] = indicesArray[i];
+        // Copy array[halfway - end] to another array
+        for (int i = halfway; i < arrayToSort.length; i++) {
+            rightWordsArray[i - halfway] = arrayToSort[i];
         }
-        leftWordsArray = mergeSort(leftWordsArray, leftIndicesArray);
-        rightWordsArray = mergeSort(rightWordsArray, rightIndicesArray);
-
-        sortedWordsArray = merge(leftWordsArray, rightWordsArray, leftIndicesArray, rightIndicesArray);
-
-        return sortedWordsArray;
+        // Call to mergeSort to get each half array sorted
+        leftWordsArray = mergeSort(leftWordsArray);
+        rightWordsArray = mergeSort(rightWordsArray);
+        // Return the sored array
+        return merge(leftWordsArray, rightWordsArray);
     }
-    public String[] merge(String[] leftWordsArray, String[] rightWordsArray, int[] leftIndicesArray, int[] rightIndicesArray) {
+    // Takes two sorted arrays and puts them together into one sorted array
+    public IndexedWordObject[] merge(IndexedWordObject[] leftWordsArray, IndexedWordObject[] rightWordsArray) {
 
-        String[] sortedWords = new String[leftWordsArray.length + rightWordsArray.length];
-        int[] sortedIndices = new int[leftWordsArray.length + rightWordsArray.length];
-
+        IndexedWordObject[] sortedWords = new IndexedWordObject[leftWordsArray.length + rightWordsArray.length];
+        // Points to next element in the "left" and "right" arrays to be compared
         int leftPointer = 0;
         int rightPointer = 0;
+        // Points to the next location to put something in the return array
         int returnPointer = 0;
-
+        // Run this until one of the arrays is finished
+        // leftPointer = leftWordsArray.length then done.  rightPointer = rightWordsArray.length, also done
         while (leftPointer < leftWordsArray.length && rightPointer < rightWordsArray.length) {
-            if (rightWordsArray[rightPointer].compareToIgnoreCase(leftWordsArray[leftPointer]) < 0) {
-
+            // Does "right" word come first?
+            if (rightWordsArray[rightPointer].word.compareToIgnoreCase(leftWordsArray[leftPointer].word) < 0) {
+                // "Right" word comes first, move it to new array
                 sortedWords[returnPointer] = rightWordsArray[rightPointer];
-                sortedIndices[returnPointer] = rightIndicesArray[rightPointer];
 
-                returnPointer++;
-                rightPointer++;
+                returnPointer++; // Advance returnPointer to next empty space
+                rightPointer++; // Move to next element in right array
             }
             else {
+                // "Left" word comes first, move it to new array
                 sortedWords[returnPointer] = leftWordsArray[leftPointer];
-                sortedIndices[returnPointer] = leftIndicesArray[leftPointer];
 
-                returnPointer++;
-                leftPointer++;
+                returnPointer++; // Advance returnPointer to next empty space
+                leftPointer++; // Move to next element in left array
             }
         }
+        // If "right" array is finished, copy "left" array
         if (leftPointer == leftWordsArray.length) {
+            // Go until we finish "right" array
             while (rightPointer < rightWordsArray.length) {
+                // Copy from "right" array to return array
                 sortedWords[returnPointer] = rightWordsArray[rightPointer];
-                sortedIndices[returnPointer] = rightIndicesArray[rightPointer];
 
-                returnPointer++;
-                rightPointer++;
+                returnPointer++; // Advance returnPointer to next empty space
+                rightPointer++; // Move to next element in "right" array
             }
         }
+        // If "left" array is finished, copy "left" array
         if (rightPointer == rightWordsArray.length) {
+            // Go until we finish "left" array
             while (leftPointer < leftWordsArray.length) {
+                // Copy from "left" array to return array
                 sortedWords[returnPointer] = leftWordsArray[leftPointer];
-                sortedIndices[returnPointer] = leftIndicesArray[leftPointer];
 
-                returnPointer++;
-                leftPointer++;
+                returnPointer++; // Advance returnPointer to next empty space
+                leftPointer++; // Move to next element in "left" array
             }
         }
-        sortedIndicesArray = sortedIndices;
         return sortedWords;
-    }
-    public String[] getSortedWordsArray() {
-        return sortedWordsArray;
-    }
-    public int[] getIndicesArray() {
-        return sortedIndicesArray;
     }
 }
